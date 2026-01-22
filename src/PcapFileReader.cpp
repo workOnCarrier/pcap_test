@@ -5,6 +5,7 @@
 #include <cctype>
 #include <cstdint>
 #include <filesystem>
+#include <memory>
 #include <optional>
 #include <stdexcept>
 #include <string>
@@ -65,16 +66,15 @@ PcapFileReader::PcapFileReader(StatsAggregator& aggregator)
 void PcapFileReader::ProcessFile(const std::filesystem::path& filePath)
 {
     char errbuf[PCAP_ERRBUF_SIZE] = {0};
-    pcap_t* handle = pcap_open_offline(filePath.c_str(), errbuf);
+    std::unique_ptr<pcap_t, decltype(&pcap_close)> handle(pcap_open_offline(filePath.c_str(), errbuf), &pcap_close);
     if (!handle)
     {
         throw std::runtime_error("Failed to open pcap file " + filePath.string() + ": " + errbuf);
     }
 
-    const int linkType = pcap_datalink(handle);
+    const int linkType = pcap_datalink(handle.get());
     if (linkType != DLT_EN10MB)
     {
-        pcap_close(handle);
         throw std::runtime_error("Unsupported datalink type in file " + filePath.string());
     }
 
@@ -82,7 +82,7 @@ void PcapFileReader::ProcessFile(const std::filesystem::path& filePath)
     pcap_pkthdr* header = nullptr;
     while (true)
     {
-        const int status = pcap_next_ex(handle, &header, &packet);
+        const int status = pcap_next_ex(handle.get(), &header, &packet);
         if (status == 1)
         {
             PacketMetadata metadata;
@@ -101,12 +101,10 @@ void PcapFileReader::ProcessFile(const std::filesystem::path& filePath)
         }
         else
         {
-            std::string errorMessage = pcap_geterr(handle);
-            pcap_close(handle);
+            std::string errorMessage = pcap_geterr(handle.get());
             throw std::runtime_error("pcap_next_ex failed for file " + filePath.string() + ": " + errorMessage);
         }
     }
-    pcap_close(handle);
 }
 
 bool PcapFileReader::ExtractPacket(const pcap_pkthdr* header, const u_char* data, PacketMetadata& output) const
