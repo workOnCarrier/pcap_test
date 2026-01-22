@@ -29,7 +29,7 @@ struct StatsSummary
 class StatsAggregator
 {
 public:
-    void ProcessPacket(Side side, uint64_t sequenceNumber, uint64_t timestampNs);
+    void ProcessPacket(Side side, uint32_t sequenceNumber, uint64_t timestampNs);
 
     StatsSummary BuildSummary() const;
 
@@ -42,10 +42,10 @@ private:
         uint64_t tsB = 0;
     };
 
-    void HandleMatch(uint64_t sequenceNumber, const SequenceState& state);
+    void HandleMatch(uint32_t sequenceNumber, const SequenceState& state);
 
-    std::unordered_map<uint64_t, SequenceState> pending_;
-    std::unordered_set<uint64_t> completed_;
+    std::unordered_map<uint32_t, SequenceState> pending_;
+    std::unordered_set<uint32_t> completed_;
     uint64_t totalPacketsA_ = 0;
     uint64_t totalPacketsB_ = 0;
     uint64_t fasterCountA_ = 0;

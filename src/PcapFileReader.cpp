@@ -33,12 +33,12 @@ uint32_t ReadBigEndian32(const u_char* buffer)
            (static_cast<uint32_t>(buffer[2]) << 8) | static_cast<uint32_t>(buffer[3]);
 }
 
-uint64_t ReadLittleEndian64(const u_char* buffer)
+uint32_t ReadLittleEndian32(const u_char* buffer)
 {
-    uint64_t value = 0;
-    for (int i = 0; i < 8; ++i)
+    uint32_t value = 0;
+    for (int i = 0; i < 4; ++i)
     {
-        value |= static_cast<uint64_t>(buffer[i]) << (i * 8);
+        value |= static_cast<uint32_t>(buffer[i]) << (i * 8);
     }
     return value;
 }
@@ -170,7 +170,7 @@ bool PcapFileReader::ExtractPacket(const pcap_pkthdr* header, const u_char* data
     }
     const size_t udpPayloadLength = static_cast<size_t>(udpLength - 8);
     const u_char* udpPayload = udpHeader + 8;
-    if (udpPayloadLength < 8)
+    if (udpPayloadLength < 4)
     {
         return false;
     }
@@ -198,13 +198,13 @@ bool PcapFileReader::ExtractPacket(const pcap_pkthdr* header, const u_char* data
     }
 
     const size_t payloadOffset = udpPayload - data;
-    const size_t requiredBytes = payloadOffset + 8;
+    const size_t requiredBytes = payloadOffset + 4;
     if (header->caplen < requiredBytes + metamakoTrailerLength)
     {
         return false;
     }
 
-    output.sequenceNumber = ReadLittleEndian64(udpPayload);
+    output.sequenceNumber = ReadLittleEndian32(udpPayload);
 
     const size_t trailerOffset = header->caplen - metamakoTrailerLength;
     const u_char* trailer = data + trailerOffset;

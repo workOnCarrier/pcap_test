@@ -4,7 +4,7 @@
 
 namespace PcapLearn
 {
-void StatsAggregator::ProcessPacket(Side side, uint64_t sequenceNumber, uint64_t timestampNs)
+void StatsAggregator::ProcessPacket(Side side, uint32_t sequenceNumber, uint64_t timestampNs)
 {
     if (side == Side::kA)
     {
@@ -48,7 +48,7 @@ void StatsAggregator::ProcessPacket(Side side, uint64_t sequenceNumber, uint64_t
     }
 }
 
-void StatsAggregator::HandleMatch(uint64_t /*sequenceNumber*/, const SequenceState& state)
+void StatsAggregator::HandleMatch(uint32_t /*sequenceNumber*/, const SequenceState& state)
 {
     const int64_t delta = static_cast<int64_t>(state.tsA) - static_cast<int64_t>(state.tsB);
     if (delta < 0)

@@ -20,7 +20,7 @@ private:
     struct PacketMetadata
     {
         Side side;
-        uint64_t sequenceNumber;
+        uint32_t sequenceNumber;
         uint64_t timestampNs;
     };
 

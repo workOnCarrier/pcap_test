@@ -66,7 +66,7 @@ Mount any directory containing pcaps at `/app/data` (or pass an explicit directo
 
 ## Design notes & assumptions
 
-- Packets are parsed from Ethernet UDP frames with an appended 20-byte Metamako trailer. Timestamp seconds/nanoseconds are treated as big-endian as observed in the provided data.
+- Packets are parsed from Ethernet/IPV4/UDP frames with an appended 20-byte Metamako trailer. Timestamp seconds/nanoseconds are treated as big-endian.
 - Exchange sequence numbers are read as 64-bit little-endian integers at the start of each UDP payload, per the CME SBE header spec.
 - Only the first observed packet per side per sequence number participates in matching; subsequent duplicates on the same side are ignored for arbitration but still counted toward total packet statistics. Once both sides for a sequence are seen, further duplicates of that sequence are ignored for matching to keep memory bounded.
 - Input directories are scanned non-recursively for `.pcap` files. Extend `PcapProcessor::ShouldParseFile` if additional file types must be supported.
