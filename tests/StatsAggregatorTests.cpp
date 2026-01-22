@@ -4,8 +4,8 @@
 #include <cmath>
 #include <iostream>
 
-using flowtraders::Side;
-using flowtraders::StatsAggregator;
+using PcapLearn::Side;
+using PcapLearn::StatsAggregator;
 
 void TestBasicMatch()
 {

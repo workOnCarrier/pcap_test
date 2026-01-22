@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-namespace flowtraders
+namespace PcapLearn
 {
 void StatsAggregator::ProcessPacket(Side side, uint64_t sequenceNumber, uint64_t timestampNs)
 {
@@ -105,4 +105,4 @@ StatsSummary StatsAggregator::BuildSummary() const
     return summary;
 }
 
-} // namespace flowtraders
+} // namespace PcapLearn

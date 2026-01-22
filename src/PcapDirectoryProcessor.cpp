@@ -6,7 +6,7 @@
 #include <filesystem>
 #include <stdexcept>
 
-namespace flowtraders
+namespace PcapLearn
 {
 
 PcapDirectoryProcessor::PcapDirectoryProcessor(PcapFileReader& reader)
@@ -58,4 +58,4 @@ bool PcapDirectoryProcessor::ShouldParseFile(const std::filesystem::path& filePa
     return extension == ".pcap";
 }
 
-} // namespace flowtraders
+} // namespace PcapLearn

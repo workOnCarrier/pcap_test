@@ -3,7 +3,7 @@
 #include <filesystem>
 #include <string>
 
-namespace flowtraders
+namespace PcapLearn
 {
 
 class PcapFileReader;
@@ -21,4 +21,4 @@ private:
     PcapFileReader& reader_;
 };
 
-} // namespace flowtraders
+} // namespace PcapLearn

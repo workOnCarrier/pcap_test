@@ -6,7 +6,7 @@
 
 #include <filesystem>
 
-namespace flowtraders
+namespace PcapLearn
 {
 
 class PcapFileReader
@@ -29,4 +29,4 @@ private:
     StatsAggregator& aggregator_;
 };
 
-} // namespace flowtraders
+} // namespace PcapLearn

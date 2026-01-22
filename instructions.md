@@ -1,4 +1,4 @@
-# Flow Traders Take-Home Coding Challenge
+# Take-Home Coding Challenge
 
 ## Summary
 

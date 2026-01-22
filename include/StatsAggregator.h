@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-namespace flowtraders
+namespace PcapLearn
 {
 
 enum class Side
@@ -56,4 +56,4 @@ private:
     long double sumFastestAdvantage_ = 0.0;
 };
 
-} // namespace flowtraders
+} // namespace PcapLearn

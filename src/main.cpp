@@ -8,7 +8,7 @@
 
 namespace
 {
-void PrintSummary(const flowtraders::StatsSummary& summary)
+void PrintSummary(const PcapLearn::StatsSummary& summary)
 {
     std::cout << "Side A total packets: " << summary.totalPacketsSideA << '\n';
     std::cout << "Side B total packets: " << summary.totalPacketsSideB << '\n';
@@ -35,9 +35,9 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    flowtraders::StatsAggregator aggregator;
-    flowtraders::PcapFileReader reader(aggregator);
-    flowtraders::PcapDirectoryProcessor processor(reader);
+    PcapLearn::StatsAggregator aggregator;
+    PcapLearn::PcapFileReader reader(aggregator);
+    PcapLearn::PcapDirectoryProcessor processor(reader);
     try
     {
         processor.ProcessDirectory(argv[1]);

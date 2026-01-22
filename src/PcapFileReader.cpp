@@ -10,7 +10,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace flowtraders
+namespace PcapLearn
 {
 namespace
 {
@@ -214,4 +214,4 @@ bool PcapFileReader::ExtractPacket(const pcap_pkthdr* header, const u_char* data
     return true;
 }
 
-} // namespace flowtraders
+} // namespace PcapLearn
