@@ -19,5 +19,6 @@ RUN apt-get update && \
 
 WORKDIR /app
 COPY --from=builder /app/build/feed_arbitration /app/feed_arbitration
+COPY ./data /app/data
 ENTRYPOINT ["/app/feed_arbitration"]
 CMD ["/data"]
